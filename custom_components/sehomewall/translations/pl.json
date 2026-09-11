@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "SeHomeWall",
-        "description": "Dodaje encję notify \"SeHomeWall\", która przekazuje wiadomości na tablet SeHomeWall (klocek Alarm + odczyt na głos)."
+        "description": "Dodaje usługę notify \"SeHomeWall\" (jak przy telefonie w Companion App) — akcja \"Wyślij powiadomienie\" wyśle wiadomość na tablet SeHomeWall (klocek Alarm + odczyt na głos)."
       }
     },
     "abort": {

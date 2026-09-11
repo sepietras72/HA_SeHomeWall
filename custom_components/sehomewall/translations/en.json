@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "SeHomeWall",
-        "description": "Adds a \"SeHomeWall\" notify entity that forwards messages to the SeHomeWall tablet (Alarm tile + spoken aloud)."
+        "description": "Adds a \"SeHomeWall\" notify service (just like a phone in the Companion App) — the \"Send a notification\" action will send a message to the SeHomeWall tablet (Alarm tile + spoken aloud)."
       }
     },
     "abort": {

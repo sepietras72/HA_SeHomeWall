@@ -1,29 +1,31 @@
 """SeHomeWall — integracja notify konfigurowana przyciskiem (bez YAML).
 
-Dwie drogi wysyłki, obie kończą się tym samym zdarzeniem WebSocket
-`sehomewall_message`, którego nasłuchuje apka na tablecie SeHomeWall (wpis na
-klocku Alarm + odczyt na głos):
+Rejestruje KLASYCZNĄ usługę `notify.sehomewall` przez `async_load_platform`
+(mechanizm "discovery") zamiast nowej, encjowej platformy `notify` — to ten
+sam sposób, w jaki Companion App rejestruje `notify.mobile_app_<telefon>`.
+Dzięki temu „SeHomeWall" pojawia się w akcji „Wyślij powiadomienie" jako
+zwykła pozycja z opisem „Sends a notification message using the SeHomeWall
+integration", identycznie jak dla telefonu/telewizora — bez wpisu w
+configuration.yaml (discovery jest wywoływane z poziomu Pythona, tu, po
+dodaniu integracji przyciskiem).
 
-1. Wbudowana akcja "Wyślij powiadomienie" -> cel "SeHomeWall" (encja
-   `notify.sehomewall`, patrz notify.py) — najprościej, ale tylko
-   wiadomość/tytuł (sztywny schemat HA, nie da się dodać własnych pól).
-2. Własna akcja "SeHomeWall: Wyślij wiadomość" (`sehomewall.send_message`,
-   patrz services.yaml) — pełna kontrola: tekst, ikona (picker MDI), kolor
-   (picker koloru), przeczytaj na głos (tak/nie). Szukana po nazwie w
-   kreatorze akcji jak każda inna, zero YAML.
+Druga, opcjonalna droga: własna akcja "SeHomeWall: Wyślij wiadomość"
+(`sehomewall.send_message`, patrz services.yaml) — formularz z pickerem
+ikony/koloru zamiast ręcznego wpisywania w sekcji "Dane".
+
+Obie drogi kończą się tym samym zdarzeniem WebSocket `sehomewall_message`,
+którego nasłuchuje apka na tablecie SeHomeWall (klocek Alarm + TTS).
 """
 from __future__ import annotations
 
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.discovery import async_load_platform
 
 from .const import DOMAIN
-
-PLATFORMS: list[Platform] = [Platform.NOTIFY]
 
 SERVICE_SEND_MESSAGE = "send_message"
 EVENT_TYPE = "sehomewall_message"
@@ -42,7 +44,12 @@ SEND_MESSAGE_SCHEMA = vol.Schema(
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    # Klasyczna usługa notify.sehomewall — patrz KDoc notify.py. `discovery_info`
+    # zamiast wpisu w configuration.yaml pod kluczem `notify:` — TEN SAM efekt,
+    # bez YAML.
+    hass.async_create_task(
+        async_load_platform(hass, "notify", DOMAIN, {"name": "SeHomeWall"}, {})
+    )
 
     async def _handle_send_message(call: ServiceCall) -> None:
         event_data: dict = {"text": call.data["message"]}
@@ -63,7 +70,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
     if hass.services.has_service(DOMAIN, SERVICE_SEND_MESSAGE):
         hass.services.async_remove(DOMAIN, SERVICE_SEND_MESSAGE)
-    return unload_ok
+    # Legacy platforma notify załadowana przez discovery nie ma formalnego
+    # mechanizmu "unload" w HA — zostaje zarejestrowana do restartu, tak samo
+    # jak w każdej innej integracji używającej tego wzorca.
+    return True
