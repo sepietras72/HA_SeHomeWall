@@ -1,0 +1,11 @@
+{
+  "domain": "sehomewall",
+  "name": "SeHomeWall",
+  "config_flow": true,
+  "single_config_entry": true,
+  "documentation": "https://www.home-assistant.io/integrations/notify/",
+  "requirements": [],
+  "codeowners": [],
+  "iot_class": "local_push",
+  "version": "2.0.0"
+}

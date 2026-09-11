@@ -1,0 +1,13 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "SeHomeWall",
+        "description": "Dodaje encję notify \"SeHomeWall\", która przekazuje wiadomości na tablet AuraWall (klocek Alarm + odczyt na głos)."
+      }
+    },
+    "abort": {
+      "already_configured": "SeHomeWall jest już skonfigurowane."
+    }
+  }
+}
