@@ -11,10 +11,10 @@ powiadomienia na telefon: wiadomość (+ opcjonalnie tytuł) i wysyłka.
 """
 from __future__ import annotations
 
-from homeassistant.components.notify import NotifyEntity, NotifyEntityFeature
+from homeassistant.components.notify import NotifyEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DEFAULT_ICON, DOMAIN
@@ -31,9 +31,13 @@ async def async_setup_entry(
 
 
 class SeHomeWallNotifyEntity(NotifyEntity):
+    # Bez `_attr_supported_features` (NotifyEntityFeature) — niepotwierdzone
+    # API, ryzyko błędu importu przy starcie integracji (dokładnie to,
+    # podejrzewane jako przyczyna, że encja nigdy się nie tworzyła). Tytuł
+    # i tak działa: `async_send_message` przyjmuje `title` niezależnie od
+    # jakiejkolwiek flagi.
     _attr_has_entity_name = True
     _attr_name = None
-    _attr_supported_features = NotifyEntityFeature.TITLE
 
     def __init__(self, entry: ConfigEntry) -> None:
         self._attr_unique_id = f"{entry.entry_id}_notify"
