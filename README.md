@@ -1,10 +1,10 @@
 # SeHomeWall
 
 Integracja `notify` dla Home Assistant — pozwala wysyłać powiadomienia na
-tablet z apką **AuraWall** przez standardową akcję **„Wyślij powiadomienie"**.
+tablet **SeHomeWall** przez standardową akcję **„Wyślij powiadomienie"**.
 
 Każda wiadomość jest przekazywana jako zdarzenie WebSocket
-`sehomewall_message`, którego apka AuraWall nasłuchuje bezpośrednio —
+`sehomewall_message`, którego apka na tablecie nasłuchuje bezpośrednio —
 pojawia się na klocku Alarm dashboardu i jest czytana na głos.
 
 ## Instalacja przez HACS

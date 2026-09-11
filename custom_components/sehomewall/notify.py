@@ -2,8 +2,8 @@
 
 Akcja „Wyślij powiadomienie" -> cel „SeHomeWall" (albo usługa
 `notify.send_message` z `entity_id: notify.sehomewall`) jest przekazywana
-dalej jako zdarzenie WebSocket `sehomewall_message` — apka AuraWall już go
-nasłuchuje (patrz GridViewModel.handleIncomingHaMessage). Wpis trafia na
+dalej jako zdarzenie WebSocket `sehomewall_message` — apka na tablecie
+SeHomeWall już go nasłuchuje. Wpis trafia na
 klocek Alarm na tablecie i jest ZAWSZE czytany na głos, z ustaloną z góry
 ikoną (DEFAULT_ICON) — celowo zero dodatkowych pól do wypełnienia, żeby
 zwykły użytkownik miał dokładnie tyle samo kroków co przy wysyłaniu
@@ -40,7 +40,7 @@ class SeHomeWallNotifyEntity(NotifyEntity):
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name="SeHomeWall",
-            manufacturer="AuraWall",
+            manufacturer="SeHomeWall",
         )
 
     async def async_send_message(self, message: str, title: str | None = None) -> None:

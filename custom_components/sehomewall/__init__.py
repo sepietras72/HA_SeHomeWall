@@ -3,9 +3,8 @@
 Wpis w Ustawieniach -> Urządzenia i usługi -> Dodaj integrację -> "SeHomeWall"
 tworzy jedną encję notify. Każde użycie akcji "Wyślij powiadomienie" -> cel
 "SeHomeWall" jest przekazywane dalej jako zdarzenie WebSocket
-`sehomewall_message` — dokładnie to, czego już nasłuchuje apka AuraWall
-(patrz GridViewModel.handleIncomingHaMessage w projekcie AuraWall). Wpis
-trafia na klocek Alarm na tablecie i jest czytany na głos.
+`sehomewall_message` — dokładnie to, czego już nasłuchuje apka na tablecie
+SeHomeWall. Wpis trafia na klocek Alarm na tablecie i jest czytany na głos.
 """
 from __future__ import annotations
 

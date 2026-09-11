@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "SeHomeWall",
-        "description": "Dodaje encję notify \"SeHomeWall\", która przekazuje wiadomości na tablet AuraWall (klocek Alarm + odczyt na głos)."
+        "description": "Dodaje encję notify \"SeHomeWall\", która przekazuje wiadomości na tablet SeHomeWall (klocek Alarm + odczyt na głos)."
       }
     },
     "abort": {
