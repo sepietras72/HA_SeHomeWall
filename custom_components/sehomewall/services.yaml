@@ -1,0 +1,21 @@
+send_message:
+  fields:
+    message:
+      required: true
+      example: "Pranie skończone"
+      selector:
+        text:
+    icon:
+      required: false
+      example: "mdi:washing-machine"
+      selector:
+        icon:
+    color:
+      required: false
+      selector:
+        color_rgb:
+    tts:
+      required: false
+      default: true
+      selector:
+        boolean:

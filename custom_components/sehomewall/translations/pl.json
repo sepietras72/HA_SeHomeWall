@@ -9,5 +9,29 @@
     "abort": {
       "already_configured": "SeHomeWall jest już skonfigurowane."
     }
+  },
+  "services": {
+    "send_message": {
+      "name": "SeHomeWall: Wyślij wiadomość",
+      "description": "Wysyła wiadomość na tablet SeHomeWall — wpis na klocku Alarm, opcjonalnie z ikoną, kolorem i odczytem na głos.",
+      "fields": {
+        "message": {
+          "name": "Wiadomość",
+          "description": "Treść wpisu na klocku Alarm."
+        },
+        "icon": {
+          "name": "Ikona",
+          "description": "Ikona wpisu."
+        },
+        "color": {
+          "name": "Kolor",
+          "description": "Kolor kreski wpisu w dzienniku."
+        },
+        "tts": {
+          "name": "Przeczytaj na głos",
+          "description": "Czy tablet ma przeczytać wiadomość na głos."
+        }
+      }
+    }
   }
 }

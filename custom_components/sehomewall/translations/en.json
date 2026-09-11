@@ -9,5 +9,29 @@
     "abort": {
       "already_configured": "SeHomeWall is already configured."
     }
+  },
+  "services": {
+    "send_message": {
+      "name": "SeHomeWall: Send message",
+      "description": "Sends a message to the SeHomeWall tablet — an entry on the Alarm tile, optionally with an icon, color, and spoken aloud.",
+      "fields": {
+        "message": {
+          "name": "Message",
+          "description": "Text of the Alarm tile entry."
+        },
+        "icon": {
+          "name": "Icon",
+          "description": "Icon of the entry."
+        },
+        "color": {
+          "name": "Color",
+          "description": "Accent color of the log entry."
+        },
+        "tts": {
+          "name": "Speak aloud",
+          "description": "Whether the tablet should read the message aloud."
+        }
+      }
+    }
   }
 }
